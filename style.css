@@ -1,0 +1,82 @@
+<!-- style.css (Styling) -->
+body {
+    font-family: 'Kantumruy', sans-serif;
+    font-size: 32px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    background-color: purple;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.viral-text {
+    font-style: italic;
+    color: purple;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 2px solid black;
+}
+
+.nav-links a {
+    margin: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+}
+
+.icons span {
+    margin: 10px;
+    cursor: pointer;
+    font-size: 28px;
+}
+
+.product-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.product-grid div {
+    border: 1px solid black;
+    padding: 15px;
+    text-align: center;
+    width: 250px;
+    border-radius: 10px;
+}
+
+#product-section img {
+    width: 250px;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+.wishlist-icon {
+    font-size: 24px;
+    color: black;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

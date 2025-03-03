@@ -1,0 +1,169 @@
+<!-- shop.html (Shop Page) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .icons {
+            display: flex;
+            gap: 15px;
+        }
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-container">
+        <div class="nav-links">
+            <a href="#" onclick="showAllProducts()">All Products</a>
+            <a href="#" onclick="showTrending()">Trending Now</a>
+        </div>
+        <div class="icons">
+            <span onclick="viewWishlist()">❤️</span>
+            <span onclick="viewCart()">🛒</span>
+        </div>
+    </nav>
+    <div id="product-section" class="product-grid"></div>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+        function showAllProducts() {
+            let productSection = document.getElementById('product-section');
+            if (!productSection) return;
+            productSection.innerHTML = "";
+            let products = [
+                { name: "Face Serum", price: "$25", img: "images/serum.png" },
+                { name: "Moisturizer", price: "$20", img: "images/moisturizer.png" },
+                { name: "Sunscreen", price: "$18", img: "images/sunscreen.png" },
+                { name: "Cleanser", price: "$22", img: "images/cleanser.png" },
+                { name: "Night Cream", price: "$30", img: "images/nightcream.png" }
+            ];
+            
+            products.forEach(product => {
+                let productDiv = document.createElement('div');
+                productDiv.classList.add('product-card');
+                productDiv.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}" class="product-image">
+                    <p class="product-name">${product.name}</p>
+                    <p class="product-price">${product.price}</p>
+                    <span class="wishlist-icon" onclick="addToWishlist('${product.name}', '${product.price}', '${product.img}')">♡</span>
+                    <button class="add-to-cart" onclick="addToCart('${product.name}', '${product.price}', '${product.img}')">Add to Cart</button>
+                `;
+                productSection.appendChild(productDiv);
+            });
+        }
+
+        function addToWishlist(name, price, img) {
+            wishlist.push({ name, price, img });
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            alert(`${name} added to wishlist!`);
+        }
+        function addToCart(name, price, img) {
+    cart.push({ name, price, img });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${name} added to cart!`);
+}
+
+function viewCart() {
+    let productSection = document.getElementById('product-section');
+    if (!productSection) return;
+    productSection.innerHTML = "";
+    if (cart.length === 0) {
+        productSection.innerHTML = "<p>Your cart is empty</p>";
+        return;
+    }
+    
+    cart.forEach((product, index) => {
+        let productDiv = document.createElement('div');
+        productDiv.classList.add('product-card');
+        productDiv.innerHTML = `
+            <img src="${product.img}" alt="${product.name}" class="product-image">
+            <p class="product-name">${product.name}</p>
+            <p class="product-price">${product.price}</p>
+            <button class="remove-from-cart" onclick="removeFromCart(${index})">Remove from Cart</button>
+        `;
+        productSection.appendChild(productDiv);
+    });
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    viewCart();
+}
+
+
+        function viewWishlist() {
+            let productSection = document.getElementById('product-section');
+            if (!productSection) return;
+            productSection.innerHTML = "";
+            if (wishlist.length === 0) {
+                productSection.innerHTML = "<p>Your wishlist is empty</p>";
+                return;
+            }
+            
+            wishlist.forEach((product, index) => {
+                let productDiv = document.createElement('div');
+                productDiv.classList.add('product-card');
+                productDiv.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}" class="product-image">
+                    <p class="product-name">${product.name}</p>
+                    <p class="product-price">${product.price}</p>
+                    <button class="remove-from-wishlist" onclick="removeFromWishlist(${index})">Remove from Wishlist</button>
+                `;
+                productSection.appendChild(productDiv);
+            });
+        }
+
+        function removeFromWishlist(index) {
+            wishlist.splice(index, 1);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            viewWishlist();
+        }
+        function showTrending() {
+    let productSection = document.getElementById('product-section');
+    if (!productSection) return;
+    productSection.innerHTML = "";
+    let trendingProducts = [
+        { name: "Moisturizer", price: "$20", img: "images/moisturizer.png" },
+        { name: "Sunscreen", price: "$18", img: "images/sunscreen.png" }
+    ];
+    
+    trendingProducts.forEach(product => {
+        let productDiv = document.createElement('div');
+        productDiv.classList.add('product-card');
+        productDiv.innerHTML = `
+            <img src="${product.img}" alt="${product.name}" class="product-image">
+            <p class="product-name">${product.name}</p>
+            <p class="product-price">${product.price}</p>
+            <span class="wishlist-icon" onclick="addToWishlist('${product.name}', '${product.price}', '${product.img}')">♡</span>
+            <button class="add-to-cart" onclick="addToCart('${product.name}', '${product.price}', '${product.img}')">Add to Cart</button>
+        `;
+        productSection.appendChild(productDiv);
+    });
+}
+
+    </script>
+</body>
+</html>
